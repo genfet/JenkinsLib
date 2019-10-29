@@ -15,3 +15,6 @@ stage('Print Build Info') {
         version = "2019-10-30"
     }
 }
+
+
+Reference: https://github.com/AndreyVMarkelov/jenkins-pipeline-shared-lib-sample/tree/master
