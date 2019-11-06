@@ -11,6 +11,7 @@ def call(body) {
     body()
 
     def environment = config?.env ?: null
+    println "Environment is: ${environment}!!!!!!!!!"
 
     def version = config.version ?:"0.0.1"
     println "Version is: ${version}!!!!!!!!!"
