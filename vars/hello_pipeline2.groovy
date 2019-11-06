@@ -12,10 +12,10 @@ def call(body) {
 
     def environment = config?.env ?: null
 
-    def version = config?.version ?:"0.0.1"
+    def version = config.version ?:"0.0.1"
     println "Version is: ${version}!!!!!!!!!"
 
-    def agentLabel = jenkinsAgentLabel(environment)
+    def agentLabel = "docker || nprod-medium"
     println "Agent is: ${agentLabel}!!!!!!!!!"
 
     pipeline {
