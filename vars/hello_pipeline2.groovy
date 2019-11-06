@@ -1,5 +1,8 @@
 #!/usr/bin/env groovy
-import com.fechen.jenkins.domain.JenkinsLib.BuildInfo
+import com.fechen.jenkins.util.HelpUtil
+
+import static com.fechen.jenkins.util.HelpUtil.DockerImageFile
+import static com.fechen.jenkins.util.HelpUtil.jenkinsAgentLabel
 
 def call(body) {
     def config = [:]
@@ -7,12 +10,37 @@ def call(body) {
     body.delegate = config
     body()
 
-    def version = hello_pipeline.getVersion(config)
-    echo "Result Version: ${version}"
+    def environment = config?.env ?: null
 
-    def buildInfo = new BuildInfo(buildVersion: version)
+    def version = config?.version ?:"0.0.1"
+    println "Version is: ${version}!!!!!!!!!"
 
-    echo "${buildInfo.buildVersion} is the target version."
+    def agentLabel = jenkinsAgentLabel(environment)
+    println "Agent is: ${agentLabel}!!!!!!!!!"
 
-    return this
+    pipeline {
+        agent {
+            docker {
+                image DockerImageFile
+                label agentLabel
+            }
+        }
+
+        stages {
+            stage('Build') {
+                steps {
+                    script {
+                        println "build stage"
+                    }
+                }
+            }
+            stage('Build - 2') {
+                steps {
+                    script {
+                        println "build - 2 stage"
+                    }
+                }
+            }
+        }
+    }
 }
